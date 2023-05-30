@@ -13,6 +13,16 @@
   "rules": {
     "no-console": "off",
     "no-unused-vars": "off",
-    "import/no-extraneous-dependencies": ["off", { "devDependencies": false, "optionalDependencies": false, "peerDependencies": false }]
+    "import/no-extraneous-dependencies": ["off", { "devDependencies": false, "optionalDependencies": false, "peerDependencies": false }],
+    "object-curly-newline": [
+      "error",
+      {
+        "ObjectExpression": "always",
+        "ObjectPattern": { "multiline": true },
+        "ImportDeclaration": "never",
+        "ExportDeclaration": { "multiline": true, "minProperties": 3 }
+      }
+    ],
+    "eslint consistent-return": { "treatUndefinedAsUnspecified": true }
   }
 }
