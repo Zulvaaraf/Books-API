@@ -59,4 +59,13 @@ const postBookHandler = (request, h) => {
   }
 };
 
-module.exports = postBookHandler;
+const getAllBookHandler = (request, h) => {
+  const { name, reading, finished } = request.query;
+  const filteredBooks = books;
+
+  if (name !== undefined) {
+    filteredBooks = filteredBooks.filter((b) => b.name.toLowerCase().includes(name.toLowerCase()));
+  }
+};
+
+module.exports = { postBookHandler, getAllBookHandler };
