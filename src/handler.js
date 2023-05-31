@@ -24,10 +24,6 @@ const postBookHandler = (request, h) => {
     updatedAt,
   };
 
-  books.push(newBooks);
-
-  const isSuccess = books.filter((n) => n.id === id).length > 0;
-
   if (!name) {
     const response = h.response({
       status: 'fail',
@@ -46,6 +42,10 @@ const postBookHandler = (request, h) => {
     return response;
   }
 
+  books.push(newBooks);
+
+  const isSuccess = books.filter((n) => n.id === id).length > 0;
+
   if (isSuccess) {
     const response = h.response({
       status: 'success',
@@ -57,44 +57,34 @@ const postBookHandler = (request, h) => {
     response.code(201);
     return response;
   }
+  const response = h.response({
+    status: 'fail',
+    message: 'Buku gagal ditambahkan',
+  });
+  response.code(500);
+  return response;
 };
 
 const getAllBookHandler = (request, h) => {
   const { name, reading, finished } = request.query;
-  const filteredBooks = books;
-
+  let filteredBooks = books;
   if (name !== undefined) {
-    filteredBooks = filteredBooks.filter((b) => b.name.toLowerCase().includes(name.toLowerCase()));
+    filteredBooks = filteredBooks.filter((book) => book.name.toLowerCase().includes(name.toLowerCase()));
   }
-
   if (reading !== undefined) {
-    filteredBooks = filteredBooks.filter((b) => {
-      if (reading == 0) {
-        return !b.reading;
-      } else if (reading === 1) {
-        return b.reading;
-      } else {
-        return true;
-      }
-    });
+    filteredBooks = filteredBooks.filter((book) => book.reading === !!Number(reading));
   }
-
   if (finished !== undefined) {
-    filteredBooks = filteredBooks.filter((b) => {
-      if (finished == 0) {
-        return !b.reading;
-      } else if (finished === 1) {
-        return b.finished;
-      } else {
-        return true;
-      }
-    });
+    filteredBooks = filteredBooks.filter((book) => book.finished === !!Number(finished));
   }
-
   const response = h.response({
     status: 'success',
     data: {
-      books: [],
+      books: filteredBooks.map((book) => ({
+        id: book.id,
+        name: book.name,
+        publisher: book.publisher,
+      })),
     },
   });
   response.code(200);
