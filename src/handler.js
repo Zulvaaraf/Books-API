@@ -66,6 +66,39 @@ const getAllBookHandler = (request, h) => {
   if (name !== undefined) {
     filteredBooks = filteredBooks.filter((b) => b.name.toLowerCase().includes(name.toLowerCase()));
   }
+
+  if (reading !== undefined) {
+    filteredBooks = filteredBooks.filter((b) => {
+      if (reading == 0) {
+        return !b.reading;
+      } else if (reading === 1) {
+        return b.reading;
+      } else {
+        return true;
+      }
+    });
+  }
+
+  if (finished !== undefined) {
+    filteredBooks = filteredBooks.filter((b) => {
+      if (finished == 0) {
+        return !b.reading;
+      } else if (finished === 1) {
+        return b.finished;
+      } else {
+        return true;
+      }
+    });
+  }
+
+  const response = h.response({
+    status: 'success',
+    data: {
+      books: [],
+    },
+  });
+  response.code(200);
+  return response;
 };
 
 module.exports = { postBookHandler, getAllBookHandler };
