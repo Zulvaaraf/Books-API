@@ -1,7 +1,7 @@
 const successResponse = ({ responseMessage = '', responseData = {} }) => ({
   status: 'success',
   message: responseMessage,
-  responseData: responseData,
+  data: responseData,
 });
 
 const failResponse = ({ responseMessage = '', responseData = {}, withData = true }) => {
