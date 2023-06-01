@@ -8,7 +8,7 @@ class Books {
     this.author = entry.author;
     this.summary = entry.summary;
     this.publisher = entry.publisher;
-    this.pageCount = entry.publisher;
+    this.pageCount = entry.pageCount;
     this.readPage = entry.readPage;
     this.finished = entry.readPage === entry.pageCount;
     this.reading = entry.reading;

@@ -18,7 +18,7 @@ const failResponse = ({ responseMessage = '', responseData = {}, withData = true
   };
 };
 
-const errorResponse = (responseMessage) => ({
+const errorResponse = (responseMessage = '') => ({
   status: 'fail',
   message: responseMessage,
 });
