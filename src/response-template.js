@@ -4,4 +4,23 @@ const successResponse = ({ responseMessage = '', responseData = {} }) => ({
   responseData: responseData,
 });
 
-module.exports = { successResponse };
+const failResponse = ({ responseMessage = '', responseData = {}, withData = true }) => {
+  if (withData) {
+    return {
+      status: 'fail',
+      message: responseMessage,
+      data: responseData,
+    };
+  }
+  return {
+    status: 'fail',
+    message: responseMessage,
+  };
+};
+
+const errorResponse = (responseMessage) => ({
+  status: 'fail',
+  message: responseMessage,
+});
+
+module.exports = { successResponse, failResponse, errorResponse };
