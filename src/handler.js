@@ -5,7 +5,7 @@ const storage = require('./storage');
 const postBookHandler = (request, h) => {
   try {
     const { payload } = request;
-    if (payload.name === undefined) {
+    if (!payload.name) {
       const message = 'Gagal menambahkan buku. Mohon isi nama buku';
       return h
         .response(
