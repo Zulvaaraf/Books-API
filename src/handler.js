@@ -45,4 +45,16 @@ const postBookHandler = (request, h) => {
   }
 };
 
+const getBookHandler = (request, h) => {
+  const { bookIdParam } = request.params;
+  const bookById = storage.get(bookIdParam);
+  if (bookIdParam !== undefined) {
+    if (bookById === undefined) {
+      const message = 'Buku tidak ditemukan';
+      return h.response(failResponse({ responseMessage: message })).code(400);
+    }
+    return h.response(successResponse({ responseData: { book: bookById } })).code(200);
+  }
+};
+
 module.exports = { postBookHandler };
